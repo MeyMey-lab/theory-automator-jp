@@ -2286,6 +2286,7 @@ var getUpgradeListDelegate = () => {
 	let height = ui.screenHeight * 0.055;
 
 	let performTheorySwitchGrid = ui.createGrid({
+		rowSpacing: 3,
 		rowDefinitions: [height, height],
 		children: [performTheorySwitchButton, performR9SeapButton]
 	})
