@@ -2,7 +2,7 @@ var id = "theory_auto_R9";
 var name = "Theory automator - R9";
 var description = "Automates purchases and publications in theories.";
 var authors = "rus9384";
-var version = "1.6b";
+var version = "1.6c";
 var permissions = Permissions.PERFORM_GAME_ACTIONS;
 
 var theoryManager;
@@ -16,11 +16,6 @@ var upgradeCost = upgrade => upgrade.cost.getCost(upgrade.level);
 var toBig = number => BigNumber.from(number);
 var publicationMultiplier = theory => theory.nextPublicationMultiplier / theory.publicationMultiplier;
 var getR9 = () => (game.sigmaTotal / 20) ** game.researchUpgrades[8].level;
-
-var getSigmaUpgrades = () => Array.from(game.researchUpgrades).filter(x => x.id <= 101 && x.isAvailable);
-
-var isSeaped = false;
-var r9Levels = [];
 
 var primaryEquation = "";
 theory.primaryEquationHeight = 45;
@@ -2137,37 +2132,24 @@ class T8 {
 	
 }
 
-var updateSeapedLevels = () => {
-	seapedLevels = getSigmaUpgrades().map(x => x.level);
-    const upgrades = Array.from(theory.milestoneUpgrades);
-    upgrades.forEach(x => x.refund(-1));
-    for (let i = 0; i < upgrades.length; i++) {
-        upgrades[i].buy(seapedLevels[i]);
-    }
-}
-
 var r9Seap = () => {
-    const milestoneUpgrades = Array.from(theory.milestoneUpgrades);
-	if (milestoneUpgrades.reduce((partialMax, a) => Math.max(partialMax, a.level), 0) == 0) return;
+	const upgrades = Array.from(game.researchUpgrades).filter(x => x.id != 102 && x.isAvailable)
+	var prevLevels = upgrades.map(x => x.level);
 
-	if (isSeaped) {
-		const upgrades = getSigmaUpgrades();
-		upgrades.forEach(x => x.refund(-1));
-		for (let i = 0; i < upgrades.length; i++) {
-			upgrades[i].buy(r9Levels[i]);
-		}
-		game.researchUpgrades[8].buy(-1);
-		isSeaped = false;
-	} else {
-		const upgrades = getSigmaUpgrades();
-		r9Levels = upgrades.map(x => x.level)
-		upgrades.forEach(x => x.refund(-1));
+	const savedState = Array.from(theory.milestoneUpgrades);
+	if (savedState.reduce((partialMax, a) => Math.max(partialMax, a.level), 0) == 0) {
 		game.researchUpgrades[8].refund(-1);
-        seapedLevels = milestoneUpgrades.map(x => x.level);
+	} else {
+		var newLevels = savedState.map(x => x.level);
+		upgrades.forEach(x => x.refund(-1));
 		for (let i = 0; i < upgrades.length; i++) {
-			upgrades[i].buy(seapedLevels[i]);
+			upgrades[i].buy(newLevels[i]);
 		}
-		isSeaped = true;
+	}
+
+	savedState.forEach(x => x.refund(-1));
+	for (let i = 0; i < upgrades.length; i++) {
+		savedState[i].buy(prevLevels[i]);
 	}
 }
 
@@ -2294,48 +2276,39 @@ class UIutils {
 var getUpgradeListDelegate = () => {
 
 	let performTheorySwitchButton = UIutils.createLatexClickButton("Switch the theory now", () => switchTheory(true));
+	performTheorySwitchButton.row = 0;
+
+	let performR9SeapButton = UIutils.createLatexClickButton("R9 swap now", r9Seap);
+	performR9SeapButton.row = 1;
 	
 	let height = ui.screenHeight * 0.055;
 
 	let performTheorySwitchGrid = ui.createGrid({
-		rowDefinitions: [height],
-		children: [performTheorySwitchButton]
+		rowDefinitions: [height, height],
+		children: [performTheorySwitchButton, performR9SeapButton]
 	})
-    
-    let performR9SeapButton = UIutils.createLatexClickButton("R9 swap now", r9Seap);
-    performR9SeapButton.row = 0;
-    performR9SeapButton.column = 0;
-    
-    let updateSeapedLevelsButton = UIutils.createLatexClickButton(
-		"Update swapped \\(\\sigma\\)\\ dist",
-		updateSeapedLevels
-	);
-	updateSeapedLevelsButton.row = 0;
-	updateSeapedLevelsButton.column = 1;
-			
+	
 	let enableVariablePurchaseButton = UIutils.createLatexButton("Variable purchase", enableVariablePurchase);
-	enableVariablePurchaseButton.row = 1;
+	enableVariablePurchaseButton.row = 0;
 	enableVariablePurchaseButton.column = 0;
 	
 	let enableMSPurchaseButton = UIutils.createLatexButton("Milestone purchase", enableMSPurchase);
-	enableMSPurchaseButton.row = 1;
+	enableMSPurchaseButton.row = 0;
 	enableMSPurchaseButton.column = 1;
 	
 	let enablePublicationsButton = UIutils.createLatexButton("Publications", enablePublications);
-	enablePublicationsButton.row = 2;
+	enablePublicationsButton.row = 1;
 	enablePublicationsButton.column = 0;
 	
 	let enableTheorySwitchButton = UIutils.createLatexButton("Theory switch", enableTheorySwitch);
-	enableTheorySwitchButton.row = 2;
+	enableTheorySwitchButton.row = 1;
 	enableTheorySwitchButton.column = 1;
 
     let topGrid = ui.createGrid({
 		columnSpacing: 3,
 		rowSpacing: 3,
-		rowDefinitions: [height, height, height],
+		rowDefinitions: [height, height],
 		children: [
-			performR9SeapButton,
-			updateSeapedLevelsButton,
 			enableVariablePurchaseButton, 
 			enableMSPurchaseButton, 
 			enablePublicationsButton,
@@ -2418,12 +2391,13 @@ var tick = (elapsedTime, multiplier) => {
 	for (let i = 0; i < 8; i++)
 		theory.createUpgrade(i, fictitiousCurrency, new FreeCost);
 
+	// Research upgrades saved state
 	theory.setMilestoneCost(new LinearCost(1, 1));
-	let maxLevels = [100, 100, 100, 8, 8, 8, 6];
+	let maxLevels = [100, 100, 100, 8, 8, 8, 6, 30];
 	for (let i = 0; i < maxLevels.length; i++) {
 		milestone = theory.createMilestoneUpgrade(i, maxLevels[i]);
 		milestone.description = Utils.getMath("\\varphi_" + (i + 1) + "\\ \\text{{level}}");
-		milestone.info = Utils.getMath("\\text{{Student distribution with R9 respecced}}");
+		milestone.info = Utils.getMath("\\text{{Saved student distribution}}");
 	}
 
 	fictitiousCurrency.value = toBig(maxLevels.reduce((partialSum, a) => partialSum + a, 1)).exp10();
