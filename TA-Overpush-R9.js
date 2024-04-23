@@ -2389,10 +2389,11 @@ var tick = (elapsedTime, multiplier) => {
 
 	fictitiousCurrency = theory.createCurrency();
 
-	// Research upgrades saved state
-	for (let i = 0; i < 9; i++)
+	// Theory on/off upgrades
+	for (let i = 0; i < 8; i++)
 		theory.createUpgrade(i, fictitiousCurrency, new FreeCost);
 
+	// Research upgrades saved state
 	theory.setMilestoneCost(new LinearCost(1, 1));
 	let maxLevels = [100, 100, 100, 8, 8, 8, 6, 30];
 	for (let i = 0; i < maxLevels.length; i++) {
@@ -2403,13 +2404,13 @@ var tick = (elapsedTime, multiplier) => {
 
 	fictitiousCurrency.value = toBig(maxLevels.reduce((partialSum, a) => partialSum + a, 1)).exp10();
 
-	enableVariablePurchase = theory.createUpgrade(9, fictitiousCurrency, new FreeCost);
+	enableVariablePurchase = theory.createUpgrade(8, fictitiousCurrency, new FreeCost);
 
-	enableMSPurchase = theory.createUpgrade(10, fictitiousCurrency, new FreeCost);
+	enableMSPurchase = theory.createUpgrade(9, fictitiousCurrency, new FreeCost);
 
-	enablePublications = theory.createUpgrade(11, fictitiousCurrency, new FreeCost);
+	enablePublications = theory.createUpgrade(10, fictitiousCurrency, new FreeCost);
 
-	enableTheorySwitch = theory.createUpgrade(12, fictitiousCurrency, new FreeCost);
+	enableTheorySwitch = theory.createUpgrade(11, fictitiousCurrency, new FreeCost);
 }
 
 refreshTheoryManager(); // creating theory manager on initialization
