@@ -27,9 +27,9 @@ function getPrimaryEquation() {
 	
 	let coastText = "\\begin{eqnarray}";
 	if (theoryManager.id != 1 && theoryManager.id != 2)
-		coastText += "Coast\\;" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
+		coastText += "惰性走行始点" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
-		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
+		coastText += "フェーズ&=&" + theoryManager.phase + "\\\\";
 	
 	let pubTau = theoryManager.pub;
 	if (theoryManager.id == 1)
@@ -37,7 +37,7 @@ function getPrimaryEquation() {
 	else if (theoryManager.id == 2)
 		pubTau = theoryManager.theory.tauPublished * theoryManager.pub ** (1 / 0.147);
 	
-	return coastText + "Next\\;\\overline{" + theoryManager.theory.latexSymbol + "}&=&" + pubTau + "\\end{eqnarray}";
+	return coastText + "次\\overline{" + theoryManager.theory.latexSymbol + "}&=&" + pubTau + "\\end{eqnarray}";
 				
 }
 
@@ -329,7 +329,7 @@ class T1 {
 	showSchedule() {
 		secondaryEquation = "";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation = "Next\\ upgrades: ";
+			secondaryEquation = "次のアップグレード: ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
@@ -478,7 +478,7 @@ class T2 {
 	showSchedule() {
 		secondaryEquation = "";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation = "Next\\ upgrades: ";
+			secondaryEquation = "次のアップグレード: ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
@@ -1044,7 +1044,7 @@ class T4 {
 	showSchedule() {
 		secondaryEquation = "\\begin{eqnarray}";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation += "Next\\;upgrades&:& ";
+			secondaryEquation += "次のアップグレード&:& ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
@@ -1321,7 +1321,7 @@ class T5 {
 	showSchedule() {
 		secondaryEquation = "\\begin{eqnarray}";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation += "Next\\;upgrades&:& ";
+			secondaryEquation += "次のアップグレード&:& ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
@@ -1331,7 +1331,7 @@ class T5 {
 		}
 		if (this.scheduledUpgrades.length)
 			secondaryEquation += "\\\\";
-		secondaryEquation += "q\\;flip\\;point &:& " + (this.getC3 * this.getC2 * 2 / 3) + "\\end{eqnarray}";
+		secondaryEquation += "q\\;のフリップ点 &:& " + (this.getC3 * this.getC2 * 2 / 3) + "\\end{eqnarray}";
 		theory.invalidateSecondaryEquation();
 	}
 	
@@ -1627,7 +1627,7 @@ class T6 {
 	showSchedule() {
 		secondaryEquation = "\\begin{eqnarray}";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation += "Next\\;upgrades&:& ";
+			secondaryEquation += "次のアップグレード&:& ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
@@ -1644,7 +1644,7 @@ class T6 {
 		}
 		if (this.scheduledUpgrades.length)
 			secondaryEquation += "\\\\";
-		secondaryEquation += "term\\;ratio&:& " + this.ratio + "\\end{eqnarray}";
+		secondaryEquation += "期間のレート&:& " + this.ratio + "\\end{eqnarray}";
 		theory.invalidateSecondaryEquation();
 	}
 	
@@ -1870,7 +1870,7 @@ class T7 {
 	showSchedule() {
 		secondaryEquation = "";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation = "Next\\ upgrades: ";
+			secondaryEquation = "次のアップグレード: ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
@@ -2048,7 +2048,7 @@ class T8 {
 	showSchedule() {
 		secondaryEquation = "";
 		if (this.scheduledUpgrades.length)
-			secondaryEquation = "Next\\ upgrades: ";
+			secondaryEquation = "次のアップグレード: ";
 		for (let i = 0; i < Math.min(this.scheduledUpgrades.length, 5); i++){
 			if (this.scheduledUpgrades[i][1] > 1)
 				secondaryEquation += this.scheduledUpgrades[i][1];
