@@ -29,7 +29,7 @@ function getPrimaryEquation() {
 	if (theoryManager.id != 1 && theoryManager.id != 2)
 		coastText += "Coast " + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
-		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
+		coastText += "Phase &=&" + theoryManager.phase + "\\\\";
 	
 	let pubTau = theoryManager.pub;
 	if (theoryManager.id == 1)
