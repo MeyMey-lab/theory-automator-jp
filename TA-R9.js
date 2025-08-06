@@ -2319,7 +2319,7 @@ var getUpgradeListDelegate = () => {
 	
 	buttonArray = [];
 	for (let i = 0; i < 8; i++) {
-		let newButton = UIutils.createLatexButton("理論" + (i + 1) + " " + theoryManager.theory.latexSymbol + "&=&" + game.theories[i].tau, theory.upgrades[i], i);
+		let newButton = UIutils.createLatexButton("理論" + (i + 1) + " τ&=&" + game.theories[i].tau, theory.upgrades[i], i);
 		newButton.row = i % 4;
 		newButton.column = Math.floor(i / 4);
 		buttonArray.push(newButton);	
