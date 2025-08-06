@@ -1,5 +1,5 @@
 var id = "theory_auto_R9";
-var name = "Theory automator - R9";
+var name = "理論自動化";
 var description = "Automates purchases and publications in theories.";
 var authors = "rus9384";
 var version = "1.6c";
@@ -2166,7 +2166,7 @@ class UIutils {
 		});
 		
 		let labelRight = ui.createLabel({
-			text: variable.level == 1 ? "✓" : "✗",
+			text: variable.level == 1 ? "○" : "×",
 			horizontalTextAlignment: TextAlignment.CENTER,
 			verticalTextAlignment: TextAlignment.START,
 			textColor: variable.level == 1 ? Color.TEXT : Color.TEXT_MEDIUM,
@@ -2209,7 +2209,7 @@ class UIutils {
 					theory.invalidateSecondaryEquation();
 				}
 				
-				labelRight.text = variable.level == 1 ? "✓" : "✗";
+				labelRight.text = variable.level == 1 ? "○" : "×";
 				labelLeft.textColor = variable.level == 1 ? Color.TEXT : Color.TEXT_MEDIUM;
 				labelRight.textColor = variable.level == 1 ? Color.TEXT : Color.TEXT_MEDIUM;
 				buttonFrame.borderColor = variable.level == 1 ? Color.MINIGAME_TILE_BORDER : Color.BORDER;
@@ -2275,7 +2275,7 @@ class UIutils {
 
 var getUpgradeListDelegate = () => {
 
-	let performTheorySwitchButton = UIutils.createLatexClickButton("Switch the theory now", () => switchTheory(true));
+	let performTheorySwitchButton = UIutils.createLatexClickButton("理論の入れ替え", () => switchTheory(true));
 	performTheorySwitchButton.row = 0;
 
 	let performR9SeapButton = UIutils.createLatexClickButton("R9 swap now", r9Seap);
@@ -2398,7 +2398,7 @@ var tick = (elapsedTime, multiplier) => {
 	for (let i = 0; i < maxLevels.length; i++) {
 		milestone = theory.createMilestoneUpgrade(i, maxLevels[i]);
 		milestone.description = Utils.getMath("\\varphi_" + (i + 1) + "\\ \\text{{level}}");
-		milestone.info = Utils.getMath("\\text{{Saved student distribution}}");
+		milestone.info = Utils.getMath("\\text{{保存されたσの配分}}");
 	}
 
 	fictitiousCurrency.value = toBig(maxLevels.reduce((partialSum, a) => partialSum + a, 1)).exp10();
