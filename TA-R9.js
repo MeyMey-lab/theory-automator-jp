@@ -27,7 +27,7 @@ function getPrimaryEquation() {
 	
 	let coastText = "\\begin{eqnarray}";
 	if (theoryManager.id != 1 && theoryManager.id != 2)
-		coastText += "Coast" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
+		coastText += "Coast " + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
 		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
 	
