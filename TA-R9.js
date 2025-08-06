@@ -1,6 +1,6 @@
 var id = "theory_auto_R9";
 var name = "理論自動化";
-var description = "Automates purchases and publications in theories.";
+var description = "理論の購入と出版を自動化します。";
 var authors = "rus9384";
 var version = "1.6c";
 var permissions = Permissions.PERFORM_GAME_ACTIONS;
@@ -27,9 +27,9 @@ function getPrimaryEquation() {
 	
 	let coastText = "\\begin{eqnarray}";
 	if (theoryManager.id != 1 && theoryManager.id != 2)
-		coastText += "惰性走行始点" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
+		coastText += "Coast" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
-		coastText += "フェーズ&=&" + theoryManager.phase + "\\\\";
+		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
 	
 	let pubTau = theoryManager.pub;
 	if (theoryManager.id == 1)
@@ -37,7 +37,7 @@ function getPrimaryEquation() {
 	else if (theoryManager.id == 2)
 		pubTau = theoryManager.theory.tauPublished * theoryManager.pub ** (1 / 0.147);
 	
-	return coastText + "次\\overline{" + theoryManager.theory.latexSymbol + "}&=&" + pubTau + "\\end{eqnarray}";
+	return coastText + "Next　\\overline{" + theoryManager.theory.latexSymbol + "}&=&" + pubTau + "\\end{eqnarray}";
 				
 }
 
