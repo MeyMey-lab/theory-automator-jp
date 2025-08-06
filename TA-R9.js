@@ -2275,10 +2275,10 @@ class UIutils {
 
 var getUpgradeListDelegate = () => {
 
-	let performTheorySwitchButton = UIutils.createLatexClickButton("理論の入れ替え", () => switchTheory(true));
+	let performTheorySwitchButton = UIutils.createLatexClickButton("理論を切り替える", () => switchTheory(true));
 	performTheorySwitchButton.row = 0;
 
-	let performR9SeapButton = UIutils.createLatexClickButton("R9 swap now", r9Seap);
+	let performR9SeapButton = UIutils.createLatexClickButton("R9スワップを実行", r9Seap);
 	performR9SeapButton.row = 1;
 	
 	let height = ui.screenHeight * 0.055;
@@ -2289,19 +2289,19 @@ var getUpgradeListDelegate = () => {
 		children: [performTheorySwitchButton, performR9SeapButton]
 	})
 	
-	let enableVariablePurchaseButton = UIutils.createLatexButton("Variable purchase", enableVariablePurchase);
+	let enableVariablePurchaseButton = UIutils.createLatexButton("変数自動購入", enableVariablePurchase);
 	enableVariablePurchaseButton.row = 0;
 	enableVariablePurchaseButton.column = 0;
 	
-	let enableMSPurchaseButton = UIutils.createLatexButton("Milestone purchase", enableMSPurchase);
+	let enableMSPurchaseButton = UIutils.createLatexButton("マイルストーン自動購入", enableMSPurchase);
 	enableMSPurchaseButton.row = 0;
 	enableMSPurchaseButton.column = 1;
 	
-	let enablePublicationsButton = UIutils.createLatexButton("Publications", enablePublications);
+	let enablePublicationsButton = UIutils.createLatexButton("自動出版", enablePublications);
 	enablePublicationsButton.row = 1;
 	enablePublicationsButton.column = 0;
 	
-	let enableTheorySwitchButton = UIutils.createLatexButton("Theory switch", enableTheorySwitch);
+	let enableTheorySwitchButton = UIutils.createLatexButton("理論自動切り換え", enableTheorySwitch);
 	enableTheorySwitchButton.row = 1;
 	enableTheorySwitchButton.column = 1;
 
@@ -2319,7 +2319,7 @@ var getUpgradeListDelegate = () => {
 	
 	buttonArray = [];
 	for (let i = 0; i < 8; i++) {
-		let newButton = UIutils.createLatexButton("Theory " + (i + 1), theory.upgrades[i], i);
+		let newButton = UIutils.createLatexButton("理論 " + (i + 1), theory.upgrades[i], i);
 		newButton.row = i % 4;
 		newButton.column = Math.floor(i / 4);
 		buttonArray.push(newButton);	
