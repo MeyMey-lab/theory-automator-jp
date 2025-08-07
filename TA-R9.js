@@ -15,6 +15,8 @@ var R9;
 var theory_name = ["漸化式", "微分法", "線形代数", "多項式", "ロジスティック関数", "積分法", "数値解法", "カオス理論"];
 var requirements = [150, 250, 175, 175, 150, 150, 175, 220];
 
+var getTau = () => "Dashboard";
+
 var upgradeCost = (upgrade) => upgrade.cost.getCost(upgrade.level);
 var toBig = (number) => BigNumber.from(number);
 var publicationMultiplier = (theory) => theory.nextPublicationMultiplier / theory.publicationMultiplier;
