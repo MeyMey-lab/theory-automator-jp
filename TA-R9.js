@@ -33,16 +33,16 @@ var convertTime = (secs) => {
 };
 
 var primaryEquation = "";
-theory.primaryEquationHeight = 90;
+theory.primaryEquationHeight = 120;
 function getPrimaryEquation() {
   if (primaryEquation != "") return primaryEquation;
 
   if (game.activeTheory === null || game.activeTheory.id === 8) return "";
 
   let coastText = "\\begin{eqnarray}";
-  coastText += theoryManager.theory.latexSymbol + "&=&" + theoryManager.tau + "\\\\";
+  coastText += theoryManager.theory.latexSymbol + "&=&" + game.theories[theoryManager.id].tau + "\\\\";
   if (theoryManager.id != 1 && theoryManager.id != 2)
-    coastText += "\惰性\走行開始点 " + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
+    coastText += "コースト開始点\\;" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
   else coastText += "フェーズ " + theoryManager.phase + "\\\\";
 
   let pubTau = theoryManager.pub;
