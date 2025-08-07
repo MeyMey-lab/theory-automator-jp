@@ -30,7 +30,7 @@ function getPrimaryEquation() {
 	
 	let coastText = "\\begin{eqnarray}";
 	if (theoryManager.id != 1 && theoryManager.id != 2)
-		coastText += "Coast " + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
+		coastText += "Coast\\; " + deb + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
 		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
 	
@@ -2622,7 +2622,7 @@ var getUpgradeListDelegate = () => {
 	let performTheorySwitchButton = UIutils.createLatexClickButton("理論を切り替える", () => switchTheory(true));
 	performTheorySwitchButton.row = 0;
 
-	let performR9SeapButton = UIutils.createLatexClickButton("R9スワップを実行 " + deb, r9Seap);
+	let performR9SeapButton = UIutils.createLatexClickButton("R9スワップを実行", r9Seap);
 	performR9SeapButton.row = 1;
 
 	let performStarOptimizeButton = UIutils.createLatexClickButton("スターを変数に分配", AllocUtils.simpleStar);
