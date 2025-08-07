@@ -30,7 +30,7 @@ function getPrimaryEquation() {
 	
 	let coastText = "\\begin{eqnarray}";
 	if (theoryManager.id != 1 && theoryManager.id != 2)
-		coastText += "Coast\\; " + deb + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
+		coastText += "Coast\\; " + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
 		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
 	
@@ -2140,14 +2140,11 @@ var r9Seap = () => {
 	var prevLevels = upgrades.map(x => x.level);
 
 	const savedState = Array.from(theory.milestoneUpgrades);
-	deb = "X";
 	if (savedState.reduce((partialMax, a) => Math.max(partialMax, a.level), 0) == 0) {
 		game.researchUpgrades[8].refund(-1);
-		deb = "A";
 	} else {
 		var newLevels = savedState.map(x => x.level);
 		R9level = (R9level + 1) % 2;
-		deb = "B";
 		upgrades.forEach(x => x.refund(-1));
 		for (let i = 0; i < upgrades.length; i++) {
 			upgrades[i].buy(newLevels[i]);
@@ -2158,8 +2155,6 @@ var r9Seap = () => {
 	for (let i = 0; i < upgrades.length; i++) {
 		savedState[i].buy(prevLevels[i]);
 	}
-
-	//AllocUtils.simpleStudent();
 }
 
 class AllocUtils {
@@ -2627,13 +2622,16 @@ var getUpgradeListDelegate = () => {
 
 	let performStarOptimizeButton = UIutils.createLatexClickButton("スターを変数に分配", AllocUtils.simpleStar);
 	performStarOptimizeButton.row = 2;
+
+	let performStudentOptimizeButton = UIutils.createLatexClickButton("学生を分配", AllocUtils.simpleStudent);
+	performStudentOptimizeButton.row = 3;
 	
 	let height = ui.screenHeight * 0.055;
 
 	let performTheorySwitchGrid = ui.createGrid({
 		rowSpacing: 3,
 		rowDefinitions: [height, height],
-		children: [performTheorySwitchButton, performR9SeapButton, performStarOptimizeButton]
+		children: [performTheorySwitchButton, performR9SeapButton, performStarOptimizeButton, performStudentOptimizeButton]
 	})
 	
 	let enableVariablePurchaseButton = UIutils.createLatexButton("変数自動購入", enableVariablePurchase);
