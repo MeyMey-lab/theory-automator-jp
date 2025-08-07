@@ -2371,12 +2371,11 @@ var getUpgradeListDelegate = () => {
   let r9toggle = ui.createStackLayout({
     children: [
       ui.createLabel({
-        text: "R9も含める",
+        text: "R9も配分",
         fontSize: 10,
         verticalTextAlignment: TextAlignment.END,
         horizontalTextAlignment: TextAlignment.CENTER,
-        //textColor: () => Color.TEXT,
-        textColor: buyR9.level == 1 ? Color.TEXT : Color.TEXT_MEDIUM,
+        textColor: () => Color.TEXT,
       }),
       ui.createSwitch({
         //onColor: Color.SWITCH_BACKGROUND,
@@ -2399,7 +2398,8 @@ var getUpgradeListDelegate = () => {
         textColor: () => Color.TEXT,
       }),
       ui.createSwitch({
-        onColor: Color.SWITCH_BACKGROUND,
+        //onColor: Color.SWITCH_BACKGROUND,
+        onColor: lockTA.level == 1 ? Color.SWITCH_BACKGROUND : Color.TEXT_MEDIUM,
         isToggled: () => !!lockTA.level,
         onTouched: (e) => {
           if (e.type == TouchType.PRESSED) lockTA.level = (lockTA.level + 1) % 2;
