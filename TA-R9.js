@@ -8,6 +8,7 @@ var permissions = Permissions.PERFORM_GAME_ACTIONS;
 var theoryManager;
 var timer = 0;
 var requirements = [150, 250, 175, 175, 150, 150, 175, 220];
+var theory_name = ["漸化式", "微分法", "線形代数", "多項式", "ロジスティック関数", "積分法", "数値解法", "カオス理論"]
 var R8;
 var R9;
 var test;
@@ -29,7 +30,7 @@ function getPrimaryEquation() {
 	if (theoryManager.id != 1 && theoryManager.id != 2)
 		coastText += "Coast " + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
 	else
-		coastText += "Phase &=&" + theoryManager.phase + "\\\\";
+		coastText += "Phase&=&" + theoryManager.phase + "\\\\";
 	
 	let pubTau = theoryManager.pub;
 	if (theoryManager.id == 1)
@@ -2319,7 +2320,7 @@ var getUpgradeListDelegate = () => {
 	
 	buttonArray = [];
 	for (let i = 0; i < 8; i++) {
-		let newButton = UIutils.createLatexButton("理論" + (i + 1) + " τ=" + game.theories[i].tau, theory.upgrades[i], i);
+		let newButton = UIutils.createLatexButton(theory_name[i], theory.upgrades[i], i);
 		newButton.row = i % 4;
 		newButton.column = Math.floor(i / 4);
 		buttonArray.push(newButton);	
