@@ -2492,11 +2492,9 @@ class AllocUtils {
 AllocUtils.MAX_DFS_SIZE = 300;
 
 class UIutils {
-	
 	static createLatexButton(header, variable, id = -1) {
-		
 		let labelLeft = ui.createLatexLabel({
-			text: header + ": ",
+			text: header,
 			horizontalTextAlignment: TextAlignment.START,
 			verticalTextAlignment: TextAlignment.CENTER,
 			textColor: variable.level == 1 ? Color.TEXT : Color.TEXT_MEDIUM,
