@@ -2185,14 +2185,14 @@ class AllocUtils {
         const maxLevels = up.level;
         up.refund(-1);
 
-        const doubleLevels = this.nextDouble(variables[i].level);
+        const doubleLevels = AllocUtils.nextDouble(variables[i].level);
 
         if (maxLevels < doubleLevels) {
           toMove.push(i);
           continue;
         }
 
-        const dumpLevels = maxLevels - this.lastDouble(variables[i].level + maxLevels);
+        const dumpLevels = maxLevels - AllocUtils.lastDouble(variables[i].level + maxLevels);
 
         let cost = up.currency.value;
         up.buy(dumpLevels);
