@@ -13,6 +13,7 @@ var R8;
 var R9;
 var test;
 var R9level;
+var deb;
 
 var upgradeCost = upgrade => upgrade.cost.getCost(upgrade.level);
 var toBig = number => BigNumber.from(number);
@@ -2141,9 +2142,11 @@ var r9Seap = () => {
 	const savedState = Array.from(theory.milestoneUpgrades);
 	if (savedState.reduce((partialMax, a) => Math.max(partialMax, a.level), 0) == 0) {
 		game.researchUpgrades[8].refund(-1);
+		deb = "A";
 	} else {
 		var newLevels = savedState.map(x => x.level);
 		R9level = (R9level + 1) % 2;
+		deb = "B";
 		upgrades.forEach(x => x.refund(-1));
 		for (let i = 0; i < upgrades.length; i++) {
 			upgrades[i].buy(newLevels[i]);
@@ -2618,7 +2621,7 @@ var getUpgradeListDelegate = () => {
 	let performTheorySwitchButton = UIutils.createLatexClickButton("理論を切り替える", () => switchTheory(true));
 	performTheorySwitchButton.row = 0;
 
-	let performR9SeapButton = UIutils.createLatexClickButton("R9スワップを実行", r9Seap);
+	let performR9SeapButton = UIutils.createLatexClickButton("R9スワップを実行 " + deb, r9Seap);
 	performR9SeapButton.row = 1;
 
 	let performStarOptimizeButton = UIutils.createLatexClickButton("スターを変数に分配", AllocUtils.simpleStar);
