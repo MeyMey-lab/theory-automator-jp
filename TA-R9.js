@@ -2134,7 +2134,7 @@ class T8 {
 }
 
 var r9Seap = () => {
-	const upgrades = Array.from(game.researchUpgrades).filter(x => x.id != 102 && x.isAvailable)
+	const upgrades = Array.from(game.researchUpgrades).filter(x => x.id != 102 && x.isAvailable);
 	var prevLevels = upgrades.map(x => x.level);
 
 	const savedState = Array.from(theory.milestoneUpgrades);
@@ -2152,6 +2152,8 @@ var r9Seap = () => {
 	for (let i = 0; i < upgrades.length; i++) {
 		savedState[i].buy(prevLevels[i]);
 	}
+
+	AllocUtils.simpleStudent();
 }
 
 class AllocUtils {
