@@ -1,8 +1,8 @@
-var id = "rmboyce_ultimate_theory";
-var name = "Ultimate Theory";
-var description = "This theory fuses together rus9384's theory automator and the auto student/star allocators of Eaux Tacous#1021's QoL theory";
+var id = "expontential_dashboard";
+var name = "理論自動化ダッシュボード";
+var description = "これは理論自動化+学生&スター配分最適化理論の日本語化バージョンです。";
 var authors = "rmboyce";
-var version = "0.1";
+var version = "1.0";
 var permissions = Permissions.PERFORM_GAME_ACTIONS;
 
 // This theory fuses together rus9384's theory automator and the auto student/star allocators of Eaux Tacous#1021's QoL theory
