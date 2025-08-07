@@ -2503,6 +2503,4 @@ var tick = (elapsedTime, multiplier) => {
   lockTA = theory.createUpgrade(21, fictitiousCurrency, new FreeCost());
 }
 
-var get2DGraphValue = () => game.tau.toNumber();
-
 refreshTheoryManager(); // Creating theory manager on initialization
