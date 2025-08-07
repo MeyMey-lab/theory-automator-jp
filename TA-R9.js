@@ -12,6 +12,8 @@ var theoryManager;
 var timer = 0;
 var R8;
 var R9;
+var theory_name = ["漸化式", "微分法", "線形代数", "多項式", "ロジスティック関数", "積分法", "数値解法", "カオス理論"];
+var requirements = [150, 250, 175, 175, 150, 150, 175, 220];
 
 var upgradeCost = (upgrade) => upgrade.cost.getCost(upgrade.level);
 var toBig = (number) => BigNumber.from(number);
@@ -40,7 +42,6 @@ function getPrimaryEquation() {
   if (game.activeTheory === null || game.activeTheory.id === 8) return "";
 
   let coastText = "\\begin{eqnarray}";
-  coastText += theoryManager.theory.latexSymbol + "&=&" + game.theories[theoryManager.id].tau + "\\\\";
   if (theoryManager.id != 1 && theoryManager.id != 2)
     coastText += "コースト開始点\\;" + theoryManager.theory.latexSymbol + "&=&" + theoryManager.coast + "\\\\";
   else coastText += "フェーズ " + theoryManager.phase + "\\\\";
@@ -2232,12 +2233,12 @@ class UIutils {
     buttonFrame.onTouched = (touchEvent) => {
       if (!lockTA.level && (touchEvent.type == TouchType.SHORTPRESS_RELEASED || touchEvent.type == TouchType.LONGPRESS_RELEASED)) {
         variable.level = (variable.level + 1) % 2;
-        if (id >= 0 && game.theories[id].tau.log10() < 300) {
-          variable.level = 0;
-          timer = 5;
-          primaryEquation = "Requires\\; 300\\; " + game.theories[id].latexSymbol;
-          theory.invalidatePrimaryEquation();
-        }
+				if (id >= 0 && game.theories[id].tau.log10() < requirements[id]) {
+					variable.level = 0;
+					timer = 5;
+					primaryEquation = theory_name[i] + "\\; の自動化には\\; " + game.theories[id].latexSymbol + "&=&" + requirements[id] + "\\; が必要です。";
+					theory.invalidatePrimaryEquation();
+				}
 
         if (!variable.level && (game.activeTheory?.id == id || variable == enableVariablePurchase)) {
           secondaryEquation = "";
@@ -2343,7 +2344,6 @@ var getUpgradeListDelegate = () => {
 
   // Auto theory activation for each theory buttons
   buttonArray = [];
-  var theory_name = ["漸化式", "微分法", "線形代数", "多項式", "ロジスティック関数", "積分法", "数値解法", "カオス理論"]
   for (let i = 0; i < 8; i++) {
     let newButton = UIutils.createLatexButton(theory_name[i], theory.upgrades[i], i);
     newButton.row = i % 4;
@@ -2375,10 +2375,12 @@ var getUpgradeListDelegate = () => {
         fontSize: 10,
         verticalTextAlignment: TextAlignment.END,
         horizontalTextAlignment: TextAlignment.CENTER,
-        textColor: () => Color.TEXT,
+        //textColor: () => Color.TEXT,
+        textColor: buyR9.level == 1 ? Color.TEXT : Color.TEXT_MEDIUM,
       }),
       ui.createSwitch({
-        onColor: Color.SWITCH_BACKGROUND,
+        //onColor: Color.SWITCH_BACKGROUND,
+        onColor: buyR9.level == 1 ? Color.SWITCH_BACKGROUND : Color.SWITCH_BACKGROUND_MEDIUM,
         isToggled: () => !!buyR9.level,
         onTouched: (e) => {
           if (e.type == TouchType.PRESSED) buyR9.level = (buyR9.level + 1) % 2;
