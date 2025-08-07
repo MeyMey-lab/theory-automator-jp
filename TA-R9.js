@@ -12,7 +12,7 @@ var theory_name = ["漸化式", "微分法", "線形代数", "多項式", "ロ�
 var R8;
 var R9;
 var test;
-var buyR9;
+var R9level;
 
 var upgradeCost = upgrade => upgrade.cost.getCost(upgrade.level);
 var toBig = number => BigNumber.from(number);
@@ -2143,7 +2143,7 @@ var r9Seap = () => {
 		game.researchUpgrades[8].refund(-1);
 	} else {
 		var newLevels = savedState.map(x => x.level);
-		buyR9.level = (buyR9.level + 1) % 2;
+		R9level = (R9level + 1) % 2;
 		upgrades.forEach(x => x.refund(-1));
 		for (let i = 0; i < upgrades.length; i++) {
 			upgrades[i].buy(newLevels[i]);
@@ -2340,7 +2340,7 @@ class AllocUtils {
     const upgrades = Array.from(game.researchUpgrades).filter((x) => x.id <= 101 && x.isAvailable);
     upgrades.forEach((x) => x.refund(-1));
 
-    if (buyR9.level) game.researchUpgrades[8].buy(-1);
+    if (R9level) game.researchUpgrades[8].buy(-1);
     game.researchUpgrades[8].refund(-1);
 
     const maxLevels = upgrades.map((x) => x.maxLevel);
@@ -2475,7 +2475,7 @@ class AllocUtils {
   static debugSimpleStudentSnapshot() {
     let output = {};
     output.sigma = game.sigma.toNumber();
-    output.useR9 = !!buyR9.level;
+    output.useR9 = !!R9level;
     Array.from(game.researchUpgrades).forEach((x) => {
       output[x.id] = x.level;
     });
