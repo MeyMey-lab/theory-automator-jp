@@ -2140,6 +2140,7 @@ var r9Seap = () => {
 	var prevLevels = upgrades.map(x => x.level);
 
 	const savedState = Array.from(theory.milestoneUpgrades);
+	deb = "X";
 	if (savedState.reduce((partialMax, a) => Math.max(partialMax, a.level), 0) == 0) {
 		game.researchUpgrades[8].refund(-1);
 		deb = "A";
