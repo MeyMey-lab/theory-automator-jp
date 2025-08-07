@@ -2365,7 +2365,7 @@ class AllocUtils {
       for (let i = 0; i < upgrades.length; i++) {
         if (levels[i] >= maxLevels[i]) continue;
 
-        const cost = i == expIndex ? 2 : this.researchCost(levels[i]);
+        const cost = i == expIndex ? 2 : AllocUtils.researchCost(levels[i]);
         const curval = i == expIndex ? curSum / 20 : vals[i] / cost;
 
         if (curval > cval) {
@@ -2381,7 +2381,7 @@ class AllocUtils {
         sigma -= 2;
       } else {
         curSum += vals[cand];
-        sigma -= this.researchCost(levels[cand]);
+        sigma -= AllocUtils.researchCost(levels[cand]);
       }
       levels[cand] += 1;
     }
@@ -2392,14 +2392,14 @@ class AllocUtils {
 
       for (let i = 0; i < upgrades.length; i++) {
         if (levels[i] >= maxLevels[i]) continue;
-        let more = i == expIndex ? Math.floor(sigma / 2) : this.maxPurchaseCount(levels[i], sigma);
+        let more = i == expIndex ? Math.floor(sigma / 2) : AllocUtils.maxPurchaseCount(levels[i], sigma);
         pool *= Math.min(more, maxLevels[i] - levels[i]) + 1;
         dims += 1;
       }
 
       const heur = dims < 6 ? pool / 3 : pool / (dims == 6 ? 20 : 60);
 
-      if (heur > this.MAX_DFS_SIZE) break;
+      if (heur > AllocUtils.MAX_DFS_SIZE) break;
 
       const lastbest = history.pop();
 
@@ -2408,7 +2408,7 @@ class AllocUtils {
         sigma += 2;
       } else {
         const lastlevel = levels[lastbest] - 1;
-        const lastcost = this.researchCost(lastlevel);
+        const lastcost = AllocUtils.researchCost(lastlevel);
         levels[lastbest] -= 1;
         sigma += lastcost;
         curSum -= vals[lastbest];
@@ -2428,7 +2428,7 @@ class AllocUtils {
           maxres = res;
           maxres.cnt.push(j);
         }
-        sigma -= this.researchCost(j);
+        sigma -= AllocUtils.researchCost(j);
         if (sigma < 0) break;
         curSum += vals[i];
       }
@@ -2446,10 +2446,10 @@ class AllocUtils {
   static maxPurchaseCount(curLevel, sigma) {
     let levels = 0;
 
-    if (this.researchCost(curLevel) > sigma) return levels;
+    if (AllocUtils.researchCost(curLevel) > sigma) return levels;
 
     if (curLevel % 2 == 1) {
-      sigma -= this.researchCost(curLevel);
+      sigma -= AllocUtils.researchCost(curLevel);
       curLevel += 1;
       levels += 1;
     }
@@ -2461,7 +2461,7 @@ class AllocUtils {
     curLevel += 2 * bulks - 1;
     levels += 2 * bulks;
 
-    if (this.researchCost(curLevel) <= sigma) {
+    if (AllocUtils.researchCost(curLevel) <= sigma) {
       levels += 1;
     }
 
