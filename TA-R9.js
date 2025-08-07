@@ -2155,7 +2155,7 @@ var r9Seap = () => {
 		savedState[i].buy(prevLevels[i]);
 	}
 
-	AllocUtils.simpleStudent();
+	//AllocUtils.simpleStudent();
 }
 
 class AllocUtils {
